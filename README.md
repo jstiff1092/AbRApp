@@ -2,7 +2,7 @@
 ---
 
 ### Team
-**1.** **Jeremy Stiff** - Data Modeler and Cliant Liason
+**1.** **Jeremy Stiff** - Data Modeler and Cliant Liason 💽☎️
 
 [Repo Link](https://github.com/jstiff1092/AntibioticResistanceApp)
 
