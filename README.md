@@ -3,8 +3,10 @@
 
 ### Team
 **1.** **Jeremy Stiff** - Data Modeler and Cliant Liason 💽☎️
-2. **Nelson Urquilla** - Code architecture/lead programmer & Team Manager 
-3. **Brian Luong** - Documentation Lead 
+
+**2.** **Nelson Urquilla** - Code architecture/lead programmer & Team Manager 
+
+**3.** **Brian Luong** - Documentation Lead 
 
 [Repo Link](https://github.com/jstiff1092/AntibioticResistanceApp)
 
