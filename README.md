@@ -8,6 +8,8 @@
 
 **3.** **Brian Luong** - Documentation Lead 
 
+**4.** **Roberto Alvarado** - UI/UX design and Testing lead
+
 [Repo Link](https://github.com/jstiff1092/AntibioticResistanceApp)
 
 ### Description
