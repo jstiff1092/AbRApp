@@ -1,0 +1,7 @@
+{
+  "name": "Antibiotic Resistance App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
