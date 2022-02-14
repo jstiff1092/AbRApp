@@ -10,6 +10,8 @@
 
 **4.** **Roberto Alvarado** - UI/UX design and Testing Lead
 
+**5.** **Richard Daniel** - Supporting Lead Programmer/Supporting UI/UX Design
+
 [Repo Link](https://github.com/jstiff1092/AntibioticResistanceApp)
 
 ### Description
