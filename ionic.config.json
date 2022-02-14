@@ -1,0 +1,7 @@
+{
+  "name": "AbRApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
