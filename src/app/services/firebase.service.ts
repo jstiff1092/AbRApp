@@ -1,36 +1,27 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 import { Injectable } from '@angular/core';
-import { getDatabase, ref, child, get } from 'firebase/database';
-import { once } from 'events';
+import { environment } from 'src/environments/environment';
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, set, get, child } from 'firebase/database';
 
-@Injectable()
+const app = initializeApp(environment.firebase);
+const database = getDatabase(app);
+const dbRef = ref(database);
+
+@Injectable({
+  providedIn: 'root',
+})
 export class FirebaseService {
-  // Your web app's Firebase configuration
-  private firebaseConfig = {
-    apiKey: 'AIzaSyCHkJBIrAvYEJBNZC1rDEnETLghDFRuNR8',
-    authDomain: 'antibiotic-resistance-app.firebaseapp.com',
-    databaseURL:
-      'https://antibiotic-resistance-app-default-rtdb.firebaseio.com',
-    projectId: 'antibiotic-resistance-app',
-    storageBucket: 'antibiotic-resistance-app.appspot.com',
-    messagingSenderId: '965395585433',
-    appId: '1:965395585433:web:7ff21515ab81cb69775b08',
-  };
-
-  // Initialize Firebase
-  private app = initializeApp(this.firebaseConfig);
-  private database = getDatabase(this.app);
-  //Snapshot of the database
-  private dbRef = ref(this.database);
-
   constructor() {}
 
-  //TODO Figure this out lmao
-  getSnapshot() {
-    const snapshot = get(child(this.dbRef, '/antibiotic-resistance-app-default-rtdb'));
+  getData() {
+    get(child(dbRef, '/')).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log('No data avaliable');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 }

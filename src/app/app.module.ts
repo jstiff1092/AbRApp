@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { FirebaseService } from './services/firebase-service';
+import { FirebaseService } from './services/firebase.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
