@@ -8,11 +8,13 @@ import { FirebaseService } from './services/firebase.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { JeremyTestingComponent } from './jeremy-testing/jeremy-testing.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, JeremyTestingComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, FirebaseService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
