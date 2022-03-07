@@ -25,14 +25,14 @@ export class JeremyTestingComponent implements OnInit {
   //The array contains the items that have item.key and item.val()
   ngOnInit() {
     //this.item_array = this.firebaseservice.getData();
-    this.key_array = this.firebaseservice.getKeys();
+    //this.key_array = this.firebaseservice.getKeys();
     //this.firebaseservice.getSnapshot();
-    this.val_array = this.firebaseservice.getVals();
+    //this.val_array = this.firebaseservice.getVals();
     //this.test = this.firebaseservice.getTest();
     //console.log(this.item_array);
-    console.log(this.key_array);
+    console.log(this.firebaseservice.getKeys());
     //console.log(this.snapshot);
-    console.log(this.val_array);
+    //console.log(this.val_array);
   }
 
 }

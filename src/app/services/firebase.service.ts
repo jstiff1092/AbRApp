@@ -43,9 +43,16 @@ export class FirebaseService {
       } else {
         console.log('No data avaliable');
       }
-    }).catch((error) => {
-      console.error(error);
-    });
+      return key_array;
+    })
+      .then((a) => {
+        console.log(a);
+        console.log(a[0]);
+        key_array.concat(a);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     return key_array;
   }
 
