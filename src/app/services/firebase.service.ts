@@ -14,9 +14,7 @@ export class FirebaseService {
   constructor() { }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
-  //Method returns an array containing the antibiotic objects with bacterium childrem
-  //Accessing the antibioic name is done through: item.key
-  //Accessing the bacterium children is done through: item.val()
+  //DEPRECIATED CODE
   getData(): DataSnapshot[] {
     var item_array: DataSnapshot[] = [];
     get(child(dbRef, '/')).then((snapshot) => {
@@ -33,29 +31,28 @@ export class FirebaseService {
     return item_array;
   }
 
-  getKeys(): Array<string> {
-    var key_array: string[] = [];
-    get(child(dbRef, '/')).then((snapshot) => {
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //DEPRECIATED CODE
+  getKeys(): any {
+    var key_array = get(child(dbRef, '/')).then((snapshot) => {
+      var temparray = [];
       if (snapshot.exists()) {
         for (var x in snapshot.val()) {
-          key_array.push(x);
+          temparray.push(x);
         }
       } else {
         console.log('No data avaliable');
       }
-      return key_array;
+      return temparray;
     })
-      .then((a) => {
-        console.log(a);
-        console.log(a[0]);
-        key_array.concat(a);
-      })
       .catch((error) => {
         console.error(error);
       });
-    return key_array;
+    return key_array
   }
 
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //DEPRECIATED CODE
   getVals(): any[] {
     var val_array: any[] = []
     get(child(dbRef, '/')).then((snapshot) => {
@@ -71,5 +68,17 @@ export class FirebaseService {
       console.error(error);
     });
     return val_array;
+  }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Returns a promise that can be interacted with via .then()
+  async getDataSnapshot(): Promise<DataSnapshot> {
+    try {
+      var key_array = await get(child(dbRef, '/'));
+      return key_array.val();
+    } catch (error) {
+      console.log("Error!");
+      console.log(error);
+    }
   }
 }

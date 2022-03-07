@@ -13,26 +13,19 @@ export class JeremyTestingComponent implements OnInit {
 
   constructor(private firebaseservice: FirebaseService) { }
 
-  item_array: DataSnapshot[] = [];
-  key_array: Array<string> = []
+  key_array: string[] = [];
   val_array: any[] = [];
-  ele_array = [];
-  test = [];
 
 
   //Author: Jeremy Stiff jstiff@ggc.edu
-  //Using the ngOnInit() method to get the data when the component is loaded
-  //The array contains the items that have item.key and item.val()
   ngOnInit() {
-    //this.item_array = this.firebaseservice.getData();
-    //this.key_array = this.firebaseservice.getKeys();
-    //this.firebaseservice.getSnapshot();
-    //this.val_array = this.firebaseservice.getVals();
-    //this.test = this.firebaseservice.getTest();
-    //console.log(this.item_array);
-    console.log(this.firebaseservice.getKeys());
-    //console.log(this.snapshot);
-    //console.log(this.val_array);
+    //This code takes the promise returned from getDataSnapshot() as 'a' and extracts the values to the key and value arrays when the component is initialized
+    this.firebaseservice.getDataSnapshot()
+      .then((a) => {
+        this.key_array = Object.keys(a);
+        this.val_array = Object.values(a);
+        console.log(this.key_array);
+        console.log(this.val_array);
+      });
   }
-
 }
