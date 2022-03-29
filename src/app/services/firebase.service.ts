@@ -22,7 +22,7 @@ export class FirebaseService {
       var key_array = await get(child(dbRef, '/'));
       return key_array.val();
     } catch (error) {
-      console.log("Error!");
+      console.log("Error while awaiting data snapshot.");
       console.log(error);
     }
   }

@@ -1,3 +1,4 @@
+import { DataSnapshot } from 'firebase/database';
 import { Component, OnInit } from '@angular/core';
 
 //Needed import to use the Firebase service to get the data
@@ -12,9 +13,7 @@ export class JeremyTestingComponent implements OnInit {
 
   constructor(private firebaseservice: FirebaseService) { }
 
-  object_array: any[] = [];
-  key_array: string[] = [];
-  val_array: any[] = [];
+  workable_array: any[] = [];
 
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -27,36 +26,22 @@ export class JeremyTestingComponent implements OnInit {
       if (localStorage.getItem("data") == null) { //This code executes if localStorage is enabled and data does not exist
         this.firebaseservice.getDataSnapshot()
           .then((a) => {
-            this.object_array = Object.entries(a);
-            this.key_array = Object.keys(a);
-            this.val_array = Object.values(a);
-            console.log(this.object_array);
-            console.log(this.key_array);
-            console.log(this.val_array);
-            localStorage.setItem("data", JSON.stringify(this.object_array));
+            console.log("Local data not found. Retreiving from Firebase.");
+            this.inputFromDatabase(a);
+            console.log(this.workable_array);
           });
       } else { //This code executes if localStorage is enabled and data exists
-        this.object_array = JSON.parse(localStorage.getItem("data"));
-        console.log(this.object_array);
-        this.object_array.forEach((a) => {
-          this.key_array.push(a[0]);
-          this.val_array.push(a[1]);
-        });
-        console.log(this.key_array);
-        console.log(this.val_array);
+        console.log("Local data found.")
+        this.workable_array = JSON.parse(localStorage.getItem("data"));
+        console.log(this.workable_array);
       }
     } else { //This code executes if localStorage is not enabled
-      if (localStorage.getItem("data") == null) {
-        this.firebaseservice.getDataSnapshot()
-          .then((a) => {
-            this.object_array = Object.entries(a);
-            this.key_array = Object.keys(a);
-            this.val_array = Object.values(a);
-            console.log(this.object_array);
-            console.log(this.key_array);
-            console.log(this.val_array);
-          });
-      }
+      console.log("localStorage is not enabled on this browser... loading from Firebase")
+      this.firebaseservice.getDataSnapshot()
+        .then((a) => {
+          this.inputFromDatabase(a);
+          console.log(this.workable_array);
+        });
     }
   }
 
@@ -72,4 +57,59 @@ export class JeremyTestingComponent implements OnInit {
     }
     return true;
   }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Input the result of Promise<DataSnapshot>
+  //
+  inputFromDatabase(input: DataSnapshot): void {
+    this.workable_array = this.cleanArray(Object.entries(input));
+    localStorage.setItem("data", JSON.stringify(this.workable_array));
+  }
+
+  checkResistance(antibiotic: string, bacterium: string, input: number) {
+    //TODO
+  }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Function for making the data more workable
+  //Desired outcome is an array of javascript objects like:
+  // {antibiotic: (string)
+  //  bacterium: {javascript object with string/int[] as the key/value pair ex. {bacteria1: [12, 15], ect.} }
+  //  }
+  private cleanArray(input) {
+    let cleanarray = []
+    try {
+      input.forEach((x) => {
+        cleanarray.push({
+          antibiotic: x[0],
+          bacterium: this.cleanBacteria(x[1])
+        });
+      });
+    } catch (error) {
+      console.log("Error while running cleanArray()");
+      console.log(error);
+    }
+    return cleanarray;
+  }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Helper function to make the data more usable
+  //Takes the origional javascript object bacterium in and changes each bacteria value to an int array instead of a string
+  //ex. cleanbacteria({bacteria: "12, 15"}) will return {bacteria: [12, 15]}
+  private cleanBacteria(input) {
+    let output = {};
+    try {
+      for (let x in input) {
+        output[x] = input[x].split(",").map((y) => {
+          return parseInt(y.trim());
+        });
+      }
+    } catch (error) {
+      console.log("Error running cleanBacteria()");
+      console.log(error);
+    }
+    return output;
+  }
 }
+
+

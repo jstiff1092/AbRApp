@@ -1,15 +1,7 @@
 <h1>This is where Jeremy tests code</h1>
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>Keys</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let key of key_array">
-                <td>{{key}}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<ion-button></ion-button>
+<ion-list>
+    <ion-item *ngFor="let ent of object_array">
+        {{ent[0]}}
+    </ion-item>
+</ion-list>
