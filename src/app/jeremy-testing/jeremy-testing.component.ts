@@ -1,4 +1,4 @@
-import { DataSnapshot } from 'firebase/database';
+//Author: Jeremy Stiff jstiff@ggc.edu
 import { Component, OnInit } from '@angular/core';
 
 //Needed import to use the Firebase service to get the data
@@ -13,8 +13,22 @@ export class JeremyTestingComponent implements OnInit {
 
   constructor(private firebaseservice: FirebaseService) { }
 
-  workable_array: any = [];
-
+  /*Data stored as single javascript array
+  Formatted like:
+    {
+      antibiotic 1: {
+                    bacteria 1: [12, 15],
+                    bacteria 2: [11, 17],
+                    ect.
+                    }
+      antibiotic 2: {
+                    ect,
+                    ect,
+                    ect.
+                    }
+    }
+  */
+  workable_array: any;
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   ngOnInit() {
@@ -88,6 +102,7 @@ export class JeremyTestingComponent implements OnInit {
   // {antibiotic: (string)
   //  bacterium: {javascript object with string/int[] as the key/value pair ex. {bacteria1: [12, 15], ect.} }
   //  }
+  //Depreciated??
   private cleanArray(input) {
     let cleanarray = []
     try {
