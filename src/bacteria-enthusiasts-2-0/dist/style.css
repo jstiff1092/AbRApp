@@ -1,0 +1,131 @@
+body {
+  background: #2a2a2b;
+  font-size: 1.1em;
+  color: #fff;
+  text-align: center;
+  font-family: Arial, Helvetica;
+}
+h1 {
+  margin: 50px 0;
+  font-size: 40px;
+  font-weight: 100;
+  text-align: center;
+  font-family: "Arial";
+}
+
+body {
+  font-family: Tahoma, Geneva, sans-
+    serif;
+  color: #000000;
+  background: url(Petri-Dish.jpeg);
+  background-size: contain;
+}
+
+.big {
+  font-size: 1.3em;
+}
+
+.small {
+  font-size: .7em;
+}
+
+.square {
+  width: .7em;
+  height: .7em;
+  margin: .5em;
+  display: inline-block;
+}
+
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 20px;
+}
+
+.custom-dropdown select {
+  background-color: #1abc9c;
+  color: #fff;
+  font-size: inherit;
+  padding: .5em;
+  padding-right: 2.5em;
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button;
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after {
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+
+.custom-dropdown::before {
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+
+.buttons {
+  margin-top: 300px;
+  text-align: right;
+  margin-right: 300px;
+}
+
+
+body {
+	background-color: White;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+h1 {
+	font-family: "Sacramento", cursive;
+	font-size: 3rem;
+	color: 	#000000;
+	font-family: "Berkshire Swash", cursive;
+}
+
+
+button, input[type="submit"] {
+  font-size: 1.2rem;
+  color: white;
+  border-radius: 10px;
+  position: right;
+  margin-left: 200px;
+  padding: 10px;
+  background-color: #208820;
+  bottom: 800px
+}
+
+button {
+  background-color: red;
+  margin-bottom: 1000px;
+  margin-left: 500px;
+}
