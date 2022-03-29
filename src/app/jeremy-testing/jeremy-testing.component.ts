@@ -13,7 +13,7 @@ export class JeremyTestingComponent implements OnInit {
 
   constructor(private firebaseservice: FirebaseService) { }
 
-  workable_array: any[] = [];
+  workable_array: any = [];
 
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -27,27 +27,33 @@ export class JeremyTestingComponent implements OnInit {
         this.firebaseservice.getDataSnapshot()
           .then((a) => {
             console.log("Local data not found. Retreiving from Firebase.");
-            this.inputFromDatabase(a);
+            console.log(Object.entries(a));
+            this.workable_array = this.testCleanArray(Object.entries(a));
+            localStorage.setItem("data", JSON.stringify(this.workable_array));
             console.log(this.workable_array);
           });
       } else { //This code executes if localStorage is enabled and data exists
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
         console.log(this.workable_array);
+        console.log(this.workable_array['Amikacin, AN-30']);
+        console.log(this.workable_array['Amikacin, AN-30']['Acinetobacter']);
+        console.log(this.determineResistance('Amikacin, AN-30', 'Acinetobacter', 18));
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase")
       this.firebaseservice.getDataSnapshot()
         .then((a) => {
-          this.inputFromDatabase(a);
+          this.workable_array = this.cleanArray(Object.entries(a));
           console.log(this.workable_array);
         });
     }
+    //localStorage.removeItem("data");
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   //Function to check if localStorage is enabled on user browser
-  checkLocal(): boolean {
+  private checkLocal(): boolean {
     try {
       const key = "__testing key to determine if localstorage is enabled__";
       localStorage.setItem(key, key);
@@ -59,15 +65,21 @@ export class JeremyTestingComponent implements OnInit {
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
-  //Input the result of Promise<DataSnapshot>
-  //
-  inputFromDatabase(input: DataSnapshot): void {
-    this.workable_array = this.cleanArray(Object.entries(input));
-    localStorage.setItem("data", JSON.stringify(this.workable_array));
-  }
-
-  checkResistance(antibiotic: string, bacterium: string, input: number) {
-    //TODO
+  // -1 resistant, 0 intermediate, 1 susceptable
+  determineResistance(antibiotic: string, bacterium: string, input: number): number {
+    try {
+      let lowhigh: number[] = this.workable_array[antibiotic][bacterium]
+      if (input < lowhigh[1] && input > lowhigh[0])
+        return 0;
+      else if (input <= lowhigh[0])
+        return -1;
+      else
+        return 1;
+    } catch (error) {
+      console.log("Error while determining resistance");
+      console.log(error);
+    }
+    return 1;
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -86,10 +98,27 @@ export class JeremyTestingComponent implements OnInit {
         });
       });
     } catch (error) {
-      console.log("Error while running cleanArray()");
+      console.log("Error while cleaning input array");
       console.log(error);
     }
     return cleanarray;
+  }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Alternate function for managing the data
+  //Data stored as one javascript object with antibiotic as key and clean bacterium list as values
+  //I prefer this function
+  private testCleanArray(input) {
+    let output = {};
+    try {
+      input.forEach((x) => {
+        output[x[0]] = this.cleanBacteria(x[1]);
+      });
+    } catch (error) {
+      console.log("Error while cleaning input array");
+      console.log(error);
+    }
+    return output;
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -105,7 +134,7 @@ export class JeremyTestingComponent implements OnInit {
         });
       }
     } catch (error) {
-      console.log("Error running cleanBacteria()");
+      console.log("Error while cleaning bacterium");
       console.log(error);
     }
     return output;
