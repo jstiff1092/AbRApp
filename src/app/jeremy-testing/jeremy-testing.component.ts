@@ -13,22 +13,17 @@ export class JeremyTestingComponent implements OnInit {
 
   constructor(private firebaseservice: FirebaseService) { }
 
-  /*Data stored as single javascript array
-  Formatted like:
-    {
-      antibiotic 1: {
-                    bacteria 1: [12, 15],
-                    bacteria 2: [11, 17],
-                    ect.
-                    }
-      antibiotic 2: {
-                    ect,
-                    ect,
-                    ect.
-                    }
-    }
+  /*
+  * Javascript objects are stored in an array like : [{
+    antibiotic: "String"
+    bacterium: {Javascript object of bacteria, bacteria: [int, int]}
+  }]
   */
   workable_array: any;
+  selected_antibiotic: any;
+  selected_bacterium: string;
+  user_input: number;
+  resistance: number;
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   ngOnInit() {
@@ -49,16 +44,22 @@ export class JeremyTestingComponent implements OnInit {
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
         console.log(this.workable_array);
+        console.log(this.workable_array[5]);
+        console.log(this.workable_array[5].bacterium);
+        console.log(this.workable_array[5].bacterium['Staphylococcus spp']);
+        console.log(this.determineResistance(5, "Staphylococcus spp", 13));
+        console.log(this.determineResistance(5, "Staphylococcus spp", 14));
+        console.log(this.determineResistance(5, "Staphylococcus spp", 18));
       }
     } else { //This code executes if localStorage is not enabled
-      console.log("localStorage is not enabled on this browser... loading from Firebase")
+      console.log("localStorage is not enabled on this browser... loading from Firebase");
       this.firebaseservice.getDataSnapshot()
         .then((a) => {
           this.workable_array = this.cleanArray(Object.entries(a));
           console.log(this.workable_array);
         });
     }
-    localStorage.removeItem("data");
+    //localStorage.removeItem("data");
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -76,9 +77,14 @@ export class JeremyTestingComponent implements OnInit {
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   // -1 resistant, 0 intermediate, 1 susceptable
-  determineResistance(antibiotic: string, bacterium: string, input: number): number {
+  /*
+  * This method takes an array index, the exact bacteria name, and the test result as unput and returns an output like above
+  * This method is designed around the idea that the front end selection list will list the antibiotic by name but return their index position as the value
+  * bacteria should be listed by name and returned by name
+  */
+  determineResistance(antibiotic: number, bacteria: string, input: number): number {
     try {
-      let lowhigh: number[] = this.workable_array[antibiotic][bacterium]
+      let lowhigh: number[] = this.workable_array[antibiotic]['bacterium'][bacteria];
       if (input < lowhigh[1] && input > lowhigh[0])
         return 0;
       else if (input <= lowhigh[0])
@@ -118,6 +124,21 @@ export class JeremyTestingComponent implements OnInit {
   //Alternate function for managing the data
   //Data stored as one javascript object with antibiotic as key and clean bacterium list as values
   //Test of using one large javascript object instead
+  /*Data stored as single javascript array
+  Formatted like:
+    {
+      antibiotic 1: {
+                    bacteria 1: [12, 15],
+                    bacteria 2: [11, 17],
+                    ect.
+                    }
+      antibiotic 2: {
+                    ect,
+                    ect,
+                    ect.
+                    }
+    }
+  */
   private testCleanArray(input) {
     let output = {};
     try {
@@ -148,6 +169,22 @@ export class JeremyTestingComponent implements OnInit {
       console.log(error);
     }
     return output;
+  }
+
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //Function to clean the UI up when user changes antibiotic
+  onChangeAntibiotic(): void {
+    this.selected_bacterium = undefined;
+    this.user_input = undefined;
+  }
+
+  onChangeBacterium(): void {
+    this.user_input = undefined;
+  }
+
+  onClick() {
+    console.log("sumbitted");
+    console.log(this.selected_antibiotic + " " + this.selected_bacterium + " " + this.user_input);
   }
 }
 
