@@ -23,7 +23,8 @@ export class JeremyTestingComponent implements OnInit {
   selected_antibiotic: any;
   selected_bacterium: string;
   user_input: number;
-  resistance: number;
+  result:number;
+  resistance: string;
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   ngOnInit() {
@@ -43,13 +44,6 @@ export class JeremyTestingComponent implements OnInit {
       } else { //This code executes if localStorage is enabled and data exists
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
-        console.log(this.workable_array);
-        console.log(this.workable_array[5]);
-        console.log(this.workable_array[5].bacterium);
-        console.log(this.workable_array[5].bacterium['Staphylococcus spp']);
-        console.log(this.determineResistance(5, "Staphylococcus spp", 13));
-        console.log(this.determineResistance(5, "Staphylococcus spp", 14));
-        console.log(this.determineResistance(5, "Staphylococcus spp", 18));
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase");
@@ -179,12 +173,21 @@ export class JeremyTestingComponent implements OnInit {
     this.user_input = undefined;
   }
 
+  //Author: Jeremy Stiff jstiff@ggc.edu
   onChangeBacterium(): void {
     this.user_input = undefined;
   }
 
+  //Author: Jeremy Stiff jstiff@ggc.edu
+  //The super long line of code is the result of determine resistance function. So if (-1, 0, 1 == X)
   onClick() {
-    this.resistance = this.determineResistance(this.workable_array.indexOf(this.selected_antibiotic), this.selected_bacterium, this.user_input);
+    this.result = this.determineResistance(this.workable_array.indexOf(this.selected_antibiotic), this.selected_bacterium, this.user_input);
+    if (this.result == -1)
+      this.resistance = "Resistant";
+    else if (this.result == 0)
+      this.resistance = "Intermediate";
+    else
+      this.resistance = "Susceptible";
   }
 }
 
