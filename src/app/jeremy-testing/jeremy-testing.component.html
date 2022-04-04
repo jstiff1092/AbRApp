@@ -31,5 +31,6 @@
 <h1>Your selected antibiotic: {{workable_array.indexOf(selected_antibiotic)}}</h1>
 <h1>Your selected bacterium: {{selected_bacterium}}</h1>
 <h1>User input: {{user_input}}</h1>
+<h1 *ngIf="resistance != undefined">Result: {{resistance}}</h1> 
 
 <ion-button (click)="onClick()" >Submit</ion-button>

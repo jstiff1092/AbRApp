@@ -121,6 +121,7 @@ export class JeremyTestingComponent implements OnInit {
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
+  //UNUSED!!
   //Alternate function for managing the data
   //Data stored as one javascript object with antibiotic as key and clean bacterium list as values
   //Test of using one large javascript object instead
@@ -183,8 +184,7 @@ export class JeremyTestingComponent implements OnInit {
   }
 
   onClick() {
-    console.log("sumbitted");
-    console.log(this.selected_antibiotic + " " + this.selected_bacterium + " " + this.user_input);
+    this.resistance = this.determineResistance(this.workable_array.indexOf(this.selected_antibiotic), this.selected_bacterium, this.user_input);
   }
 }
 
