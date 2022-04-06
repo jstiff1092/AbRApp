@@ -42,7 +42,7 @@ export class JeremyTestingComponent implements OnInit {
           .then((a) => {
             console.log("Local data not found. Retreiving from Firebase.");
             console.log(Object.entries(a));
-            this.workable_array = this.testCleanArray(Object.entries(a));
+            this.workable_array = this.cleanArray(Object.entries(a));
             localStorage.setItem("data", JSON.stringify(this.workable_array));
             console.log(this.workable_array);
           });
@@ -50,9 +50,12 @@ export class JeremyTestingComponent implements OnInit {
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
         console.log(this.workable_array);
-        console.log(this.workable_array['Amikacin, AN-30']);
-        console.log(this.workable_array['Amikacin, AN-30']['Acinetobacter']);
-        console.log(this.determineResistance('Amikacin, AN-30', 'Acinetobacter', 18));
+        console.log(this.workable_array[1]);
+        console.log(this.workable_array[1]['bacterium']);
+        console.log(this.workable_array[1]['bacterium']['Acinetobacter']);
+        console.log(this.determineResistance(1, 'Acinetobacter', 14));
+        console.log(this.determineResistance(1, 'Acinetobacter', 15));
+        console.log(this.determineResistance(1, 'Acinetobacter', 17));
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase")
@@ -80,9 +83,9 @@ export class JeremyTestingComponent implements OnInit {
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   // -1 resistant, 0 intermediate, 1 susceptable
-  determineResistance(antibiotic: string, bacterium: string, input: number): number {
+  determineResistance(antibiotic: number, bacteria: string, input: number): number {
     try {
-      let lowhigh: number[] = this.workable_array[antibiotic][bacterium]
+      let lowhigh: number[] = this.workable_array[antibiotic].bacterium[bacteria];
       if (input < lowhigh[1] && input > lowhigh[0])
         return 0;
       else if (input <= lowhigh[0])
@@ -102,7 +105,6 @@ export class JeremyTestingComponent implements OnInit {
   // {antibiotic: (string)
   //  bacterium: {javascript object with string/int[] as the key/value pair ex. {bacteria1: [12, 15], ect.} }
   //  }
-  //Depreciated??
   private cleanArray(input) {
     let cleanarray = []
     try {
@@ -122,7 +124,7 @@ export class JeremyTestingComponent implements OnInit {
   //Author: Jeremy Stiff jstiff@ggc.edu
   //Alternate function for managing the data
   //Data stored as one javascript object with antibiotic as key and clean bacterium list as values
-  //I prefer this function
+  /*
   private testCleanArray(input) {
     let output = {};
     try {
@@ -134,7 +136,7 @@ export class JeremyTestingComponent implements OnInit {
       console.log(error);
     }
     return output;
-  }
+  } */
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   //Helper function to make the data more usable
