@@ -80,12 +80,12 @@ export class JeremyTestingComponent implements OnInit {
   determineResistance(antibiotic: number, bacteria: string, input: number): number {
     try {
       let lowhigh: number[] = this.workable_array[antibiotic]['bacterium'][bacteria];
-      if (input < lowhigh[1] && input > lowhigh[0])
-        return 0;
+      if (input >= lowhigh[1])
+        return 1;
       else if (input <= lowhigh[0])
         return -1;
       else
-        return 1;
+        return 0;
     } catch (error) {
       console.log("Error while determining resistance");
       console.log(error);
@@ -172,11 +172,13 @@ export class JeremyTestingComponent implements OnInit {
   onChangeAntibiotic(): void {
     this.selected_bacterium = undefined;
     this.user_input = undefined;
+    this.resistance = undefined;
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   onChangeBacterium(): void {
     this.user_input = undefined;
+    this.resistance = undefined;
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
@@ -189,6 +191,8 @@ export class JeremyTestingComponent implements OnInit {
     else
       this.resistance = "Susceptible";
   }
+
+  //TODO EXTRA - Create feature to determine likely bacterium based on zone input and antibiotic input. Based on each bacterium's mean middle value aagainst every antibiotic
 }
 
 
