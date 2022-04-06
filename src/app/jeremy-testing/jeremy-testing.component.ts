@@ -44,6 +44,7 @@ export class JeremyTestingComponent implements OnInit {
       } else { //This code executes if localStorage is enabled and data exists
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
+        console.log(this.workable_array);
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase");
@@ -179,7 +180,6 @@ export class JeremyTestingComponent implements OnInit {
   }
 
   //Author: Jeremy Stiff jstiff@ggc.edu
-  //The super long line of code is the result of determine resistance function. So if (-1, 0, 1 == X)
   onClick() {
     this.result = this.determineResistance(this.workable_array.indexOf(this.selected_antibiotic), this.selected_bacterium, this.user_input);
     if (this.result == -1)
