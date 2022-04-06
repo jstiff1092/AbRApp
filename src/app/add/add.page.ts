@@ -31,6 +31,6 @@ export class AddPage implements OnInit {
   formSubmit(){
       const newAnt = firebase.database().ref('/').push();
       newAnt.set(this.addnewform.value);
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }
   }
