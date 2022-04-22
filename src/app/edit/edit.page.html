@@ -7,11 +7,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Edit Info</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let data of dataList" class="user-list">
+
+      <ion-label>
+        <h1>
+          <ion-icon name="bandage-outline"></ion-icon> {{dataList}}
+        </h1>
+      </ion-label>
+
+      <div class="item-note" item-end>
+        <button ion-button clear [routerLink]="['/edit-antibiotic/', data]">
+            <ion-icon name="create" style="zoom:2.0"></ion-icon>
+        </button>
+        <button ion-button clear (click)="removeEntry(data)">
+          <ion-icon name="trash" style="zoom:2.0"></ion-icon>
+        </button>
+      </div>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

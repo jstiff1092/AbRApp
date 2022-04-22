@@ -6,6 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-card>
   <ion-card-header>
     <ion-card-title>Add A New Antibiotic To The List</ion-card-title>
@@ -22,19 +24,30 @@
   <ion-list lines="full">
     <form [formGroup]="addnewform" (ngSubmit)="formSubmit()">
       <ion-item>
-        <ion-label position="floating">Name</ion-label>
+        <ion-label position="floating">Antibiotic</ion-label>
         <ion-input formControlName="name" type="text" required></ion-input>
       </ion-item>
+
+      <ion-content padding>
+        <ion-list lines="none">
+          <form [formGroup]="addnewform">
+            <ion-item *ngFor="let control of addnewform.controls | keyvalue">
+              <ion-input required type="text" [formControlName]="control.key" placeHolder="Bacterium"></ion-input>
+            </ion-item>
+          </form>
+        </ion-list>
+      </ion-content>
+
       <ion-item>
-        <ion-label position="floating">Bacterium</ion-label>
-        <ion-input formControlName="bacterium" type="text" required>
-        </ion-input>
+        <ion-label position="stacked">Bacterium and Zone of Inhibition</ion-label>
+        <ion-input formControlName="bacterium" type="text" placeholder="Bacterium" required></ion-input>
+        <ion-input formControlName="zone" type="text" placeholder="Zone of Inhibition" required></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Zone Of Inhibition</ion-label>
-        <ion-input formControlName="zone" type="text" required>
-        </ion-input>
-      </ion-item>
+      <button item-start ion-fab mini color="dark" (click)="addBacterium()">
+        Add New field
+        <ion-icon name="add"></ion-icon>
+      </button>
+
       <ion-row>
         <ion-col>
           <ion-button type="submit" color="primary" shape="full" expand="block">Submit</ion-button>

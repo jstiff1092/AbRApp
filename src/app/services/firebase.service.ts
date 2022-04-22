@@ -31,49 +31,28 @@ export class FirebaseService {
       console.error(error);
     });
   }
-//create
-writeAntibiotic(name: string, bact: string, zone: string) {
-  const db = getDatabase();
-  set(ref(db, '/' + name), {
-    antibiotic: name,
-    bacterium: bact,
-    zoneoi: zone
-  });
-}
 
-  createAntibiotic(ant: Antibiotic){
-    return this.antibioticListRef.push({
-      name: ant.name,
-      bacterium: ant.bacterium,
-      zone: ant.zone,
-    });
-  }
-
-  //get single
-  getAntibiotic(name: string){
-    this.antibioticRef = this.db.object('/' + name);
-    return this.antibioticRef;
-  }
-
-  //get list
   getAntibioticList(){
-    this.antibioticListRef = this.db.list('/' + name);
+    this.antibioticListRef = this.db.list('/');
     return this.antibioticListRef;
   }
 
-  //update
-  updateAntibiotic(name, ant: Antibiotic){
+  deleteAntibiotic(){
+    this.antibioticRef = this.db.object('/' + child);
+    this.antibioticRef.remove();
+  }
+
+  getAntibiotic(){
+    this.antibioticRef = this.db.object('/' + child);
+    return this.antibioticRef;
+  }
+
+  updateAntibiotic(){
     return this.antibioticRef.update({
-      name: ant.name,
-      bacterium: ant.bacterium,
-      zone: ant.zone,
+      antibiotic: '',
+      bacterium: '',
+      zone: '',
     });
+  }
 
-    }
-
-    //delete
-    deleteAntibiotic(name: string){
-      this.antibioticRef = this.db.object('/' + name);
-      this.antibioticRef.remove();
-    }
 }

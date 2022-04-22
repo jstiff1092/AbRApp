@@ -1,55 +1,35 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-
-export interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  localId: string;
-  expiresIn: string;
-  registered?: boolean;
-}
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private _userIsAuthenticated = false;
-  private _userId = null;
+  constructor(private auth: Auth) {}
 
-  get userIsAuthenticated() {
-    return this._userIsAuthenticated;
+  async register({ email, password }) {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        this.auth,
+        email,
+        password
+      );
+      return user;
+    } catch (e) {
+      return null;
+    }
   }
 
-  get userId() {
-    return this._userId;
-  }
-
-  constructor(private http: HttpClient) {}
-
-  signup(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${
-        environment.firebase
-      }`,
-      { email, password, returnSecureToken: true }
-    );
-  }
-
-  login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(
-      `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
-        environment.firebase
-      }`,
-      { email, password }
-    );
+  async login({ email, password }) {
+    try {
+      const user = await signInWithEmailAndPassword(this.auth, email, password);
+      return user;
+    } catch (e) {
+      return null;
+    }
   }
 
   logout() {
-    this._userIsAuthenticated = false;
+    return signOut(this.auth);
   }
 }

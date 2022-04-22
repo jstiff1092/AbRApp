@@ -20,6 +20,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { HttpClientModule } from '@angular/common/http';
 
+import { provideAuth, getAuth } from '@angular/fire/auth';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     HttpClientModule,
+    provideAuth(() => getAuth()),
   ],
   providers: [
     Platform,

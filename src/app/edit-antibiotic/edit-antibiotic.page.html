@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Antibiotic Entry</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form [formGroup]="updateAntibioticForm" (ngSubmit)="updateForm">
+      <ion-item>
+        <ion-label position="floating">Antibiotic</ion-label>
+        <ion-input formControlName="antibiotic" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Bacterium and Zone of Inhibition</ion-label>
+        <ion-input formControlName="bacterium" type="text" required></ion-input>
+        <ion-input formControlName="zone" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">Update Antibiotic</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>

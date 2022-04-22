@@ -1,86 +1,61 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
-import { Observable } from 'rxjs';
-
-import { AuthService, AuthResponseData } from './auth.service';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { AuthService } from './auth.service';
 
 @Component({
-  selector: 'app-auth',
+  selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  isLoading = false;
-  isLogin = true;
+  credentials: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
+    private loadingController: LoadingController,
+    private alertController: AlertController,
     private authService: AuthService,
-    private router: Router,
-    private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private router: Router
   ) {}
 
-  ngOnInit() {}
-
-  authenticate(email: string, password: string) {
-    this.isLoading = true;
-    this.loadingCtrl
-      .create({ keyboardClose: true, message: 'Logging in...' })
-      .then(loadingEl => {
-        loadingEl.present();
-        let authObs: Observable<AuthResponseData>;
-        if (this.isLogin) {
-          authObs = this.authService.login(email, password);
-        } else {
-          authObs = this.authService.signup(email, password);
-        }
-        authObs.subscribe(
-          resData => {
-            console.log(resData);
-            this.isLoading = false;
-            loadingEl.dismiss();
-            this.router.navigateByUrl('/');
-          },
-          errRes => {
-            loadingEl.dismiss();
-            const code = errRes.error.error.message;
-            let message = 'Could not sign you up, please try again.';
-            if (code === 'EMAIL_EXISTS') {
-              message = 'This email address exists already!';
-            } else if (code === 'EMAIL_NOT_FOUND') {
-              message = 'E-Mail address could not be found.';
-            } else if (code === 'INVALID_PASSWORD') {
-              message = 'This password is not correct.';
-            }
-            this.showAlert(message);
-          }
-        );
-      });
+  // Easy access for form fields
+  get email() {
+    return this.credentials.get('email');
   }
 
-  onSwitchAuthMode() {
-    this.isLogin = !this.isLogin;
+  get password() {
+    return this.credentials.get('password');
   }
 
-  onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
+  ngOnInit() {
+    this.credentials = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
+
+  async login() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    const user = await this.authService.login(this.credentials.value);
+    await loading.dismiss();
+
+    if (user) {
+      this.router.navigateByUrl('home', { replaceUrl: true });
+    } else {
+      this.showAlert('Login failed', 'Please try again!');
     }
-    const email = form.value.email;
-    const password = form.value.password;
-
-    this.authenticate(email, password);
   }
 
-  private showAlert(message: string) {
-    this.alertCtrl
-      .create({
-        header: 'Authentication failed',
-        message,
-        buttons: ['Okay']
-      })
-      .then(alertEl => alertEl.present());
+  async showAlert(header, message) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }
