@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -20,8 +21,10 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { HttpClientModule } from '@angular/common/http';
 
+import { JeremyTestingComponent } from './jeremy-testing/jeremy-testing.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, JeremyTestingComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -46,4 +49,4 @@ import { HttpClientModule } from '@angular/common/http';
 ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
