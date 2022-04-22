@@ -26,16 +26,13 @@
     "@capacitor/haptics": "1.1.4",
     "@capacitor/keyboard": "1.2.2",
     "@capacitor/status-bar": "1.0.8",
-<<<<<<< HEAD
+    "@firebase/app": "^0.7.20",
     "@ionic-native/splash-screen": "^5.36.0",
     "@ionic-native/status-bar": "^5.36.0",
     "@ionic/angular": "^6.0.0",
     "cordova-plugin-statusbar": "^3.0.0",
-=======
-    "@firebase/app": "^0.7.20",
-    "@ionic/angular": "^6.0.0",
->>>>>>> Jeremy-Service
     "firebase": "^9.6.10",
+    "ionic-native": "^2.9.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
