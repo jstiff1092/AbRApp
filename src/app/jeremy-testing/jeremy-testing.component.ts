@@ -37,10 +37,6 @@ export class JeremyTestingComponent implements OnInit {
         this.firebaseservice.getDataSnapshot()
           .then((a) => {
             console.log("Local data not found. Retreiving from Firebase.");
-<<<<<<< HEAD
-            console.log(Object.entries(a));
-=======
->>>>>>> JeremySolo
             this.workable_array = this.cleanArray(Object.entries(a));
             localStorage.setItem("data", JSON.stringify(this.workable_array));
             console.log(this.workable_array);
@@ -49,15 +45,12 @@ export class JeremyTestingComponent implements OnInit {
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
         console.log(this.workable_array);
-<<<<<<< HEAD
         console.log(this.workable_array[1]);
         console.log(this.workable_array[1]['bacterium']);
         console.log(this.workable_array[1]['bacterium']['Acinetobacter']);
         console.log(this.determineResistance(1, 'Acinetobacter', 14));
         console.log(this.determineResistance(1, 'Acinetobacter', 15));
         console.log(this.determineResistance(1, 'Acinetobacter', 17));
-=======
->>>>>>> JeremySolo
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase");
@@ -85,13 +78,6 @@ export class JeremyTestingComponent implements OnInit {
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   // -1 resistant, 0 intermediate, 1 susceptable
-<<<<<<< HEAD
-  determineResistance(antibiotic: number, bacteria: string, input: number): number {
-    try {
-      let lowhigh: number[] = this.workable_array[antibiotic].bacterium[bacteria];
-      if (input < lowhigh[1] && input > lowhigh[0])
-        return 0;
-=======
   /*
   * This method takes an array index, the exact bacteria name, and the test result as unput and returns an output like above
   * This method is designed around the idea that the front end selection list will list the antibiotic by name but return their index position as the value
@@ -102,7 +88,6 @@ export class JeremyTestingComponent implements OnInit {
       let lowhigh: number[] = this.workable_array[antibiotic]['bacterium'][bacteria];
       if (input >= lowhigh[1])
         return 1;
->>>>>>> JeremySolo
       else if (input <= lowhigh[0])
         return -1;
       else
@@ -140,9 +125,7 @@ export class JeremyTestingComponent implements OnInit {
   //UNUSED!!
   //Alternate function for managing the data
   //Data stored as one javascript object with antibiotic as key and clean bacterium list as values
-<<<<<<< HEAD
-  /*
-=======
+
   //Test of using one large javascript object instead
   /*Data stored as single javascript array
   Formatted like:
@@ -158,8 +141,6 @@ export class JeremyTestingComponent implements OnInit {
                     ect.
                     }
     }
-  */
->>>>>>> JeremySolo
   private testCleanArray(input) {
     let output = {};
     try {
