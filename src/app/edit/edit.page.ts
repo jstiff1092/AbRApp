@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { child, getDatabase } from 'firebase/database';
 import { FirebaseService } from '../services/firebase.service';
 import { Antibiotic } from '../shared/Antibiotic';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -13,6 +15,7 @@ export class EditPage implements OnInit {
 
   constructor(
     private dataBase: FirebaseService,
+    private router: Router,
 
   ) { }
 
@@ -35,11 +38,13 @@ export class EditPage implements OnInit {
     });
   }
 
-  removeEntry(child){
-    console.log(child);
-    if(window.confirm('DO You Want To Delete?')){
-      this.dataBase.deleteAntibiotic();
-    }
-  }
+  removeEntry(key){
+    console.log(key);
+   if(window.confirm('Do You Want To Delete the entry ' + key + '. This Will Remove This From The Database PERMANENTLY!')){
+    this.dataBase.delAntibiotic(key);
+    this.router.navigate(['/dashboard']);
 
+    }
+
+  }
 }

@@ -1,18 +1,22 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>My App</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
-<!--
-<ion-content class="ion-padding">
-  <form>
-    <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
-    </ion-item>
-    <ion-item fill="solid" class="ion-margin-bottom">
-      <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-    </ion-item>
 
-    <ion-button>Log in</ion-button>
-  </form>
-</ion-content> -->
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input ngModel="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input type="password" ngModel="password"></ion-input>
+  </ion-item>
+
+  <div text-center>
+    <button ion-button (click)="login(email, password)">Login</button>
+  </div>
+
+</ion-content>

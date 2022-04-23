@@ -13,12 +13,12 @@
 
       <ion-label>
         <h1>
-          <ion-icon name="bandage-outline"></ion-icon> {{dataList}}
+          <ion-icon name="bandage-outline"></ion-icon> {{data}}
         </h1>
       </ion-label>
 
       <div class="item-note" item-end>
-        <button ion-button clear [routerLink]="['/edit-antibiotic/', data]">
+        <button ion-button clear [routerLink]="['/edit-antibiotic/']">
             <ion-icon name="create" style="zoom:2.0"></ion-icon>
         </button>
         <button ion-button clear (click)="removeEntry(data)">

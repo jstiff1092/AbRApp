@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   // Easy access for form fields
@@ -36,11 +36,11 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async login() {
+  async login(email, password) {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    const user = await this.authService.login(this.credentials.value);
+    const user = await this.authService.login(email, password);
     await loading.dismiss();
 
     if (user) {
@@ -49,6 +49,12 @@ export class LoginPage implements OnInit {
       this.showAlert('Login failed', 'Please try again!');
     }
   }
+
+  // async login(email, password){
+  //   this.auth.signInWithEmailAndPassword(email, password).then((user) => {
+  //     this.router.navigateByUrl('home');
+  //   });
+  // }
 
   async showAlert(header, message) {
     const alert = await this.alertController.create({

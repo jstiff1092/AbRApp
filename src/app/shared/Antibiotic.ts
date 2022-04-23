@@ -1,5 +1,5 @@
-export class Antibiotic{
+export interface Antibiotic{
   name: string;
-  bacterium: [string];
-  zone: [];
+  bacterium: string;
+  zone: string;
 }

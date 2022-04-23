@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, get, child } from 'firebase/database';
+import { getDatabase, ref, set, get, child, DataSnapshot } from 'firebase/database';
 import { Antibiotic } from 'src/app/shared/Antibiotic';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireList } from '@angular/fire/compat/database';
@@ -20,16 +20,14 @@ export class FirebaseService {
 
   constructor(private db: AngularFireDatabase) {}
 
-  getData() {
-    get(child(dbRef, '/')).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log('No data avaliable');
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+  async getDataSnapshot(): Promise<DataSnapshot> {
+    try {
+      const keyArray = await get(child(dbRef, '/'));
+      return keyArray.val();
+    } catch (error) {
+      console.log('Error while awaiting data snapshot.');
+      console.log(error);
+    }
   }
 
   getAntibioticList(){
@@ -37,13 +35,13 @@ export class FirebaseService {
     return this.antibioticListRef;
   }
 
-  deleteAntibiotic(){
-    this.antibioticRef = this.db.object('/' + child);
+  deleteAntibiotic(name: string){
+    this.antibioticRef = this.db.object('/' + child(dbRef, '/'));
     this.antibioticRef.remove();
   }
 
   getAntibiotic(){
-    this.antibioticRef = this.db.object('/' + child);
+    this.antibioticRef = this.db.object('/' + child(dbRef, '/'));
     return this.antibioticRef;
   }
 
@@ -53,6 +51,10 @@ export class FirebaseService {
       bacterium: '',
       zone: '',
     });
+  }
+
+  async delAntibiotic(key){
+    this.db.object('/' + key).remove();
   }
 
 }
