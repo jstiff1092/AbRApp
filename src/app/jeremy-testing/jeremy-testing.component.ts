@@ -11,6 +11,7 @@ import { FirebaseService } from '../services/firebase.service';
 })
 export class JeremyTestingComponent implements OnInit {
 
+  filterTerm: string;
   constructor(private firebaseservice: FirebaseService) { }
 
   /*
@@ -25,6 +26,8 @@ export class JeremyTestingComponent implements OnInit {
   user_input: number;
   result:number;
   resistance: string;
+  
+  
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   ngOnInit() {
