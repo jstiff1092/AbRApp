@@ -18,11 +18,8 @@
       </ion-label>
 
       <div class="item-note" item-end>
-        <button ion-button clear [routerLink]="['/edit-antibiotic/']">
+        <button ion-button clear [routerLink]="['edit-antibiotic/'+ data]">
             <ion-icon name="create" style="zoom:2.0"></ion-icon>
-        </button>
-        <button ion-button clear (click)="removeEntry(data)">
-          <ion-icon name="trash" style="zoom:2.0"></ion-icon>
         </button>
       </div>
 

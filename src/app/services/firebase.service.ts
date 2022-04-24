@@ -45,7 +45,7 @@ export class FirebaseService {
     return this.antibioticRef;
   }
 
-  updateAntibiotic(){
+  async updateAntibiotic(ant: Antibiotic){
     return this.antibioticRef.update({
       antibiotic: '',
       bacterium: '',

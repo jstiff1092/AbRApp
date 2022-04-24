@@ -35,7 +35,7 @@ export class EditAntibioticPage implements OnInit {
   }
 
   updateForm(){
-    this.dbService.updateAntibiotic().then(() => {
+    this.dbService.updateAntibiotic(this.updateAntibioticForm.value).then(() => {
       this.router.navigate(['/edit']);
     })
     .catch(error => console.log(error));

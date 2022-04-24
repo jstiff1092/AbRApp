@@ -1,35 +1,43 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
-
-  async register({ email, password }) {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        this.auth,
-        email,
-        password
-      );
-      return user;
-    } catch (e) {
-      return null;
+  userData: any;
+  constructor(
+    public ngAuth: AngularFireAuth,
+    ) {
+      this.ngAuth.authState.subscribe((user) => {
+        if (user) {
+          this.userData = user;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        } else {
+          localStorage.setItem('user', null);
+          JSON.parse(localStorage.getItem('user'));
+        }
+      });
     }
+
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user !==null && user.emailVerified !== false ? true : false;
   }
 
-  async login( email: string, password: string ) {
-    try {
-      const user = await signInWithEmailAndPassword(this.auth, email, password);
-      return user;
-    } catch (e) {
-      return null;
-    }
+  get isEmailVerified(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.emailVerified !== false ? true : false;
+  }
+
+  login( email: string, password: string ) {
+      return this.ngAuth.signInWithEmailAndPassword(email, password);
   }
 
   logout() {
-    return signOut(this.auth);
+    return this.ngAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+    });
   }
 }

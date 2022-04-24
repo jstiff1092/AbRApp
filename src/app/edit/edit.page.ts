@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { child, getDatabase } from 'firebase/database';
 import { FirebaseService } from '../services/firebase.service';
 import { Antibiotic } from '../shared/Antibiotic';
 import { Router } from '@angular/router';
@@ -12,17 +11,16 @@ import { Router } from '@angular/router';
 export class EditPage implements OnInit {
 
   dataList = [];
-
+  antiB = this.dataBase.getAntibioticList();
   constructor(
     private dataBase: FirebaseService,
-    private router: Router,
+     private router: Router,
 
   ) { }
 
   ngOnInit() {
     this.getAllAnts();
-    const antiRes = this.dataBase.getAntibioticList();
-    antiRes.snapshotChanges().subscribe(res => {
+    this.antiB.snapshotChanges().subscribe(res => {
       this.dataList = [];
       res.forEach(item => {
         let ant = item.payload.toJSON();
@@ -38,13 +36,8 @@ export class EditPage implements OnInit {
     });
   }
 
-  removeEntry(key){
+  editPage(key){
+    this.router.navigate(['edit-antibiotic/' + key]);
     console.log(key);
-   if(window.confirm('Do You Want To Delete the entry ' + key + '. This Will Remove This From The Database PERMANENTLY!')){
-    this.dataBase.delAntibiotic(key);
-    this.router.navigate(['/dashboard']);
-
-    }
-
   }
 }
