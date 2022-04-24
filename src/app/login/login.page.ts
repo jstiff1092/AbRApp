@@ -3,7 +3,7 @@ import { user } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
