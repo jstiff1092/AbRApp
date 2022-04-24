@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>This Will Add To The Database</ion-card-subtitle>
+    <ion-card-title>ADD</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    Fill out this form to add another entry to the database. Make sure
+    the entries are correct. For Zone of inihibition type the upper most and lower most
+    diameters seperated by comma. Example: 12,16
+  </ion-card-content>
+</ion-card>
+
+<ion-content>
+  <ion-list lines="full">
+    <form [formGroup]="addnewform" (ngSubmit)="formSubmit()">
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Bacterium</ion-label>
+        <ion-input formControlName="bacterium" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Zone Of Inhibition</ion-label>
+        <ion-input formControlName="zone" type="text" required>
+        </ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" shape="full" expand="block">Submit</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>
