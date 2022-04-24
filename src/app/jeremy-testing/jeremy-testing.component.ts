@@ -47,13 +47,13 @@ export class JeremyTestingComponent implements OnInit {
       } else { //This code executes if localStorage is enabled and data exists
         console.log("Local data found.")
         this.workable_array = JSON.parse(localStorage.getItem("data"));
-        console.log(this.workable_array);
-        console.log(this.workable_array[1]);
-        console.log(this.workable_array[1]['bacterium']);
-        console.log(this.workable_array[1]['bacterium']['Acinetobacter']);
-        console.log(this.determineResistance(1, 'Acinetobacter', 14));
-        console.log(this.determineResistance(1, 'Acinetobacter', 15));
-        console.log(this.determineResistance(1, 'Acinetobacter', 17));
+        //console.log(this.workable_array);
+        //console.log(this.workable_array[1]);
+        //console.log(this.workable_array[1]['bacterium']);
+        //console.log(this.workable_array[1]['bacterium']['Acinetobacter']);
+        //console.log(this.determineResistance(1, 'Acinetobacter', 14));
+        //console.log(this.determineResistance(1, 'Acinetobacter', 15));
+        //console.log(this.determineResistance(1, 'Acinetobacter', 17));
       }
     } else { //This code executes if localStorage is not enabled
       console.log("localStorage is not enabled on this browser... loading from Firebase");
