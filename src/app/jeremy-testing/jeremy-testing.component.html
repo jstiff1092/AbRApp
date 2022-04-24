@@ -5,12 +5,6 @@
         </ion-label>
     </ion-list-header>
 
-    <ion-searchbar placeholder="Select..." [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
-    <ion-list>
-        <ion-item *ngFor="let item of workable_array">
-            <ion-label>{{item}}</ion-label>
-        </ion-item>
-    </ion-list>
     <ion-item>
         <ion-label>Antibiotic</ion-label>
         <ion-select [(ngModel)]="selected_antibiotic" (ngModelChange)="onChangeAntibiotic()"
@@ -33,10 +27,6 @@
     <ion-input placeholder="Test result" [(ngModel)]="user_input"></ion-input>
 </ion-item>
 
-
-<h1 class="ion-text-center">Your selected antibiotic: {{workable_array.indexOf(selected_antibiotic)}}</h1>
-<h1 class="ion-text-center">Your selected bacterium: {{selected_bacterium}}</h1>
-<h1 class="ion-text-center">User input: {{user_input}}</h1>
 <h1 *ngIf="resistance != undefined" class="ion-text-center">Result: {{resistance}}</h1>
 
 <div align="center">
