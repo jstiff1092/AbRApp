@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/dist/AbRApp'));
 
 app.get('/*', function(req,res) {
     
-res.sendFile(path.join(__dirname+'/dist/AbRApp/index.html'));
+res.sendFile(path.join(__dirname+'/dist/AbRApp/src/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
