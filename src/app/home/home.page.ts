@@ -17,7 +17,9 @@ export class HomePage {
   constructor(public alertCtrl: AlertController) { }  
   async showSubmit() {  
     const alert = await this.alertCtrl.create({  
-      header: 'Resistant',  
+      header: 'Result:', 
+      subHeader: 'Resistant',
+      
           buttons: ['Cancel','OK']  
           
     });  
