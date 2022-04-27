@@ -24,10 +24,10 @@ export class JeremyTestingComponent implements OnInit {
   selected_antibiotic: any;
   selected_bacterium: string;
   user_input: number;
-  result:number;
+  result: number;
   resistance: string;
-  
-  
+
+
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   ngOnInit() {
@@ -42,7 +42,7 @@ export class JeremyTestingComponent implements OnInit {
             console.log("Local data not found. Retreiving from Firebase.");
             this.workable_array = this.cleanArray(Object.entries(a));
             localStorage.setItem("data", JSON.stringify(this.workable_array));
-            console.log(this.workable_array);
+            //console.log(this.workable_array);
           });
       } else { //This code executes if localStorage is enabled and data exists
         console.log("Local data found.")
@@ -60,7 +60,7 @@ export class JeremyTestingComponent implements OnInit {
       this.firebaseservice.getDataSnapshot()
         .then((a) => {
           this.workable_array = this.cleanArray(Object.entries(a));
-          console.log(this.workable_array);
+          //console.log(this.workable_array);
         });
     }
     //localStorage.removeItem("data");
@@ -199,6 +199,13 @@ export class JeremyTestingComponent implements OnInit {
       this.resistance = "Intermediate";
     else
       this.resistance = "Susceptible";
+  }
+
+  refreshData() {
+    if (localStorage.getItem("data") != null) {
+      localStorage.removeItem("data");
+      window.location.reload();
+    }
   }
 
   //TODO EXTRA - Create feature to determine likely bacterium based on zone input and antibiotic input. Based on each bacterium's mean middle value aagainst every antibiotic
