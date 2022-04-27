@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
     private router: Router,
   ) {}
 
-  // Easy access for form fields
   get email() {
     return this.credentials.get('email');
   }
@@ -41,7 +40,7 @@ export class LoginPage implements OnInit {
     this.authService.login(email.value, password.value)
     .then((res) => {
       if(user === user) {
-        this.router.navigateByUrl('home');
+        this.router.navigateByUrl('home', {replaceUrl: true });
       } else {
         window.alert('Login Failed');
         return false;

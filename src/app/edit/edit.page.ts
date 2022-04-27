@@ -12,9 +12,10 @@ export class EditPage implements OnInit {
 
   dataList = [];
   antiB = this.dataBase.getAntibioticList();
+
   constructor(
     private dataBase: FirebaseService,
-     private router: Router,
+    private router: Router,
 
   ) { }
 
@@ -37,7 +38,8 @@ export class EditPage implements OnInit {
   }
 
   editPage(key){
-    this.router.navigate(['edit-antibiotic/' + key]);
     console.log(key);
+    this.router.navigate(['edit-antibiotic' + key]);
+
   }
 }

@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let data of dataList" class="user-list">
+    <ion-item *ngFor="let data of dataList; let i=index" class="user-list">
 
       <ion-label>
         <h1>
@@ -18,7 +18,7 @@
       </ion-label>
 
       <div class="item-note" item-end>
-        <button ion-button clear [routerLink]="['edit-antibiotic/'+ data]">
+        <button ion-button clear [routerLink]="['/edit-antibiotic/', data]">">
             <ion-icon name="create" style="zoom:2.0"></ion-icon>
         </button>
       </div>

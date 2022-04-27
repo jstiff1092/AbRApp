@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule,
     ReactiveFormsModule,
+    PipesModule
   ],
   declarations: [HomePage]
 })

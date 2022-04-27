@@ -21,12 +21,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { HttpClientModule } from '@angular/common/http';
 
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
+    PipesModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),

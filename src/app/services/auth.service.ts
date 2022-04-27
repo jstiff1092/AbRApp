@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,20 +22,25 @@ export class AuthService {
         }
       });
     }
-
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user !==null && user.emailVerified !== false ? true : false;
-  }
-
-  get isEmailVerified(): boolean {
+ get isEmailVerified(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return user.emailVerified !== false ? true : false;
   }
 
-  login( email: string, password: string ) {
-      return this.ngAuth.signInWithEmailAndPassword(email, password);
+  isLoggedIn() {
+    return of(true).pipe(delay(500));
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   return user !==null && user.emailVerified !== false ? true : false;
   }
+
+
+
+  login( email: string, password: string ) {
+      return this.ngAuth.signInWithEmailAndPassword(email, password).then(() =>
+      {
+        console.log(this.userData);
+      });
+    }
 
   logout() {
     return this.ngAuth.signOut().then(() => {

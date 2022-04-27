@@ -3,19 +3,20 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Antibiotic Resistance Check</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<ion-content>
+  <ion-searchbar placeholder="Search Antibiotics" animated (ionChange)="search( $event )"> </ion-searchbar>
+
 <ion-list>
-  <ion-item>
-      <ion-label>Antibiotic</ion-label>
-      <ion-select [(ngModel)]="selectedAntibiotic" (ngModelChange)="onChangeAntibiotic()"
-          placeholder="Select Antibiotic">
-          <ion-select-option *ngFor="let item of workabAlerray" [value]="item">{{item.antibiotic}}
-          </ion-select-option>
-      </ion-select>
-  </ion-item>
+
+      <ion-list [(ngModel)]="selectedAntibiotic" (ngModelChange)="onChangeAntibiotic()">
+          <ion-list button (click)="selectedAnt(item.antibiotic)" *ngFor="let item of workabAlerray | filter: textSearch: 'antibiotic'">{{item.antibiotic}}
+          </ion-list>
+      </ion-list>
+
   <ion-item *ngIf="selectedAntibiotic !== undefined">
       <ion-label>Bacterium</ion-label>
       <ion-select [(ngModel)]="selectedAacterium" (ngModelChange)="onChangeBacterium()"
@@ -24,6 +25,7 @@
               {{item.key}}</ion-select-option>
       </ion-select>
   </ion-item>
+
 </ion-list>
 <ion-item *ngIf="selectedAacterium !== undefined ">
   <ion-label>User Input</ion-label>
@@ -32,6 +34,8 @@
 
 <h1 *ngIf="resistance !== undefined" class="ion-text-center">Result: {{resistance}}</h1>
 
+</ion-content>
 <div align="center">
-  <ion-button (click)="onClick()">Submit</ion-button>
+  <ion-button color="success" (click)="onClick()">Submit</ion-button>
+  <ion-button color="danger" (click)="reset()">Reset</ion-button>
 </div>

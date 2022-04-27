@@ -4,6 +4,10 @@ import { Component, OnInit } from '@angular/core';
 //Needed import to use the Firebase service to get the data
 import { FirebaseService } from '../services/firebase.service';
 
+import { Router } from '@angular/router';
+
+import { AuthService } from '../services/auth.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -19,7 +23,13 @@ export class HomePage implements OnInit {
 
 
   filterTerm: string;
-  constructor(private firebaseservice: FirebaseService) { }
+  textSearch = '';
+
+  constructor(
+    private firebaseservice: FirebaseService,
+    private router: Router,
+    private auth: AuthService,
+    ) { }
 
   /*
   * Javascript objects are stored in an array like : [{
@@ -95,7 +105,25 @@ export class HomePage implements OnInit {
   }
 }
 
+reset(){
+  window.location.reload();
+}
 
+logOut(){
+  this.auth.logout();
+  console.log(this.auth.userData);
+}
+
+search( event ){
+  //console.log(event);
+  this.textSearch = event.detail.value;
+}
+
+selectedAnt(key){
+  console.log(key);
+  return this.selectedAacterium;
+
+}
 
   //Author: Jeremy Stiff jstiff@ggc.edu
   //Function to check if localStorage is enabled on user browser
