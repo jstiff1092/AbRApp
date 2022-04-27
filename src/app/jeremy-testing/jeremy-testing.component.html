@@ -1,34 +1,39 @@
-<ion-list>
-    <ion-list-header>
-        <ion-label>
-            <h1 class="ion-text-center">Antibiotic Resistance App</h1>
-        </ion-label>
-    </ion-list-header>
+<ion-app>
+    <ion-content>
+        <ion-list>
+            <ion-list-header>
+                <ion-label>
+                    <h1 class="ion-text-center">Antibiotic Resistance App</h1>
+                </ion-label>
+            </ion-list-header>
 
-    <ion-item>
-        <ion-label>Antibiotic</ion-label>
-        <ion-select [(ngModel)]="selected_antibiotic" (ngModelChange)="onChangeAntibiotic()"
-            placeholder="Select Antibiotic">
-            <ion-select-option *ngFor="let item of workable_array" [value]="item">{{item.antibiotic}}
-            </ion-select-option>
-        </ion-select>
-    </ion-item>
-    <ion-item *ngIf="selected_antibiotic != undefined">
-        <ion-label>Bacterium</ion-label>
-        <ion-select [(ngModel)]="selected_bacterium" (ngModelChange)="onChangeBacterium()"
-            placeholder="Select Bacterium">
-            <ion-select-option *ngFor="let item of selected_antibiotic.bacterium | keyvalue" [value]="item.key">
-                {{item.key}}</ion-select-option>
-        </ion-select>
-    </ion-item>
-</ion-list>
-<ion-item *ngIf="selected_bacterium != undefined ">
-    <ion-label>User Input</ion-label>
-    <ion-input placeholder="Test result" [(ngModel)]="user_input"></ion-input>
-</ion-item>
+            <ion-item>
+                <ion-label>Antibiotic</ion-label>
+                <ion-select [(ngModel)]="selected_antibiotic" (ngModelChange)="onChangeAntibiotic()"
+                    placeholder="Select Antibiotic">
+                    <ion-select-option *ngFor="let item of workable_array" [value]="item">{{item.antibiotic}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="selected_antibiotic != undefined">
+                <ion-label>Bacterium</ion-label>
+                <ion-select [(ngModel)]="selected_bacterium" (ngModelChange)="onChangeBacterium()"
+                    placeholder="Select Bacterium">
+                    <ion-select-option *ngFor="let item of selected_antibiotic.bacterium | keyvalue" [value]="item.key">
+                        {{item.key}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="selected_bacterium != undefined ">
+                <ion-label>User Input</ion-label>
+                <ion-input placeholder="Test result" [(ngModel)]="user_input"></ion-input>
+            </ion-item>
+        </ion-list>
 
-<h1 *ngIf="resistance != undefined" class="ion-text-center">Result: {{resistance}}</h1>
 
-<div align="center">
-    <ion-button (click)="onClick()">Submit</ion-button>
-</div>
+        <h1 *ngIf="resistance != undefined" class="ion-text-center">Result: {{resistance}}</h1>
+
+        <div align="center">
+            <ion-button (click)="onClick()">Submit</ion-button>
+        </div>
+    </ion-content>
+</ion-app>
