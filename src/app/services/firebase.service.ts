@@ -1,3 +1,10 @@
+/*
+  FOR FUTURE TEAMS: 
+  1) Move the database to FireStore and change the data retreival and storage to a SUBSCRIPTION based method
+  2) Record all the unique bacterium into a seperate array for the purpose of creating a feature that would allow a bacterium to be selected first
+     and only present the antibiotics that have those bacterium as data in the antibiotic list
+*/
+
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { initializeApp } from 'firebase/app';
