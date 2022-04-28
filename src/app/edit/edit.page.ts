@@ -39,7 +39,7 @@ export class EditPage implements OnInit {
 
   editPage(key){
     console.log(key);
-    this.router.navigate(['edit-antibiotic' + key]);
+    this.router.navigate(['edit-antibiotic/' + (key)]);
 
   }
 }

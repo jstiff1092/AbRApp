@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PipesModule } from '../pipes/pipes.module';
     IonicModule,
     HomePageRoutingModule,
     ReactiveFormsModule,
-    PipesModule
+    PipesModule,
+    IonicSelectableModule,
   ],
   declarations: [HomePage]
 })

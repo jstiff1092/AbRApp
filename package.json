@@ -36,6 +36,7 @@
     "cordova-plugin-statusbar": "^3.0.0",
     "express": "^4.17.3",
     "firebase": "^9.6.10",
+    "ionic-selectable": "^4.9.0",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

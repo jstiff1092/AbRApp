@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { PipesModule } from './pipes/pipes.module';
+import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { PipesModule } from './pipes/pipes.module';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     HttpClientModule,
+    IonicSelectableModule,
     provideAuth(() => getAuth()),
   ],
   providers: [
